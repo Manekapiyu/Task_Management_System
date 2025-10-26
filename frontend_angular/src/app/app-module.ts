@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { AppRoutingModule } from './app-routing-module';
 import { Signup } from './auth/components/signup/signup';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Login } from './auth/components/login/login';
+import { AppRoutingModule } from './app-routing-module';
 import { DemoAngularMaterailModule } from './DemoAngularMaterailModule';
 
-
 @NgModule({
-  declarations: [
-  ],
   imports: [
     CommonModule,
     AppRoutingModule,
     DemoAngularMaterailModule,
-    Signup
-  ]
+    ReactiveFormsModule,
+    FormsModule,
+    Login,
+    Signup,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

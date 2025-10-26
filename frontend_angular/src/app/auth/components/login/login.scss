@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  padding: 20px;
+}
+
+mat-card {
+  width: 350px;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+mat-card-title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #3f51b5;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+mat-icon {
+  color: #757575;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #3949ab !important;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  mat-card {
+    width: 100%;
+    max-width: 320px;
+  }
+}
