@@ -1,4 +1,14 @@
 package com.code.Task_SpringBoot.enums;
 
-public class TaskStatus {
+public enum TaskStatus {
+
+    PENDING,
+
+    INPROGRESS,
+
+    COMPLETED,
+
+    DEFERRED,
+    CANCELLED,
+
 }

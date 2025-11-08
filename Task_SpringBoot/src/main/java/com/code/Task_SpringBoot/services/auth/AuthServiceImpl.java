@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -18,17 +20,19 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder; // inject bean
 
     @PostConstruct
-    public void createAnAdminAccount(){
-        if (userRepository.findByUserRole(UserRole.ADMIN).isEmpty()) {
+    public void createAnAdminAccount() {
+        List<User> admins = userRepository.findByUserRole(UserRole.ADMIN);
+
+        if (admins.isEmpty()) {
             User admin = new User();
             admin.setEmail("manishasewwandi15@gmail.com");
             admin.setName("admin");
-            admin.setPassword(passwordEncoder.encode("admin"));
+            admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setUserRole(UserRole.ADMIN);
             userRepository.save(admin);
             System.out.println("Admin account created Successfully");
         } else {
-            System.out.println("Admin account already exist!");
+            System.out.println("Admin account already exists! Total admins: " + admins.size());
         }
     }
 
