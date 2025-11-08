@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,14 +23,16 @@ import { AuthService } from '../../services/auth/auth.service';
     MatButtonModule
   ],
   templateUrl: './signup.html',
-  styleUrls: ['./signup.scss']
+  styleUrls: ['./signup.scss'],
 })
 export class Signup {
   hidePassword = true;
   signupForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbar:MatSnackBar,
+    private router:Router
   ) {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
@@ -44,11 +48,34 @@ export class Signup {
 
 
   onSubmit() {
-  if (this.signupForm.valid) {
-    console.log("Form Submitted:", this.signupForm.value);
-  } else {
-    console.log("Invalid Form:", this.signupForm.errors);
+  console.log(this.signupForm.value);
+  const password = this.signupForm.get("password")?.value;
+  const confirmPassword = this.signupForm.get("confirmPassword")?.value; 
+  if(password.trim() !== confirmPassword.trim()){
+    this.snackbar.open("Passwords do not match","Close",{duration:5000, panelClass:"error-snackbar"});
+    return;
   }
-}
+this.authService.signup(this.signupForm.value).subscribe({
+  next: (res) => {
+    console.log(res);
+    if (res.id != null) {
+      this.snackbar.open("Signup successful", "Close", { duration: 5000 });
+      this.router.navigateByUrl("/login");
+    } else {
+      this.snackbar.open("Signup failed. Try again", "Close", {
+        duration: 5000,
+        panelClass: "error-snackbar",
+      });
+    }
+  },
+  error: (err) => {
+    console.error(err);
+    this.snackbar.open("Signup error: " + err.message, "Close", {
+      duration: 5000,
+      panelClass: "error-snackbar",
+    });
+  },
+});
 
+  }
 }

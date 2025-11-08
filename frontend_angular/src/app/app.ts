@@ -1,13 +1,34 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { DemoAngularMaterailModule } from "./DemoAngularMaterailModule";
+import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonModule } from '@angular/common';
+import { StorageService } from './auth/services/storage/storage.service';
 
 @Component({
   selector: 'app-root',
-  imports: [DemoAngularMaterailModule, RouterLink, RouterLinkActive,RouterOutlet],
   templateUrl: './app.html',
-  styleUrls: ['./app.scss']
+  styleUrls: ['./app.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule
+  ]
 })
 export class App {
-  protected readonly title = signal('task_manage_angular');
+logout() {
+StorageService.logout();
+this.router.navigateByUrl("/login");
+}
+  isEmployeeLoggedIn: boolean = StorageService.isEmployeeLoggedIn();
+  isAdminLoggedIn: boolean = StorageService.isAdminLoggedIn();
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(() => {
+      this.isEmployeeLoggedIn = StorageService.isEmployeeLoggedIn();
+      this.isAdminLoggedIn = StorageService.isAdminLoggedIn();
+    });
+  }
 }
