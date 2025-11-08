@@ -1,0 +1,99 @@
+.post-task-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+  padding: 40px;
+}
+
+.task-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffffd9;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+mat-card-header {
+  text-align: center;
+  background: linear-gradient(135deg, #3f51b5, #2196f3);
+  color: white;
+  padding: 25px 15px;
+
+  mat-card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 25px;
+
+  .form-field {
+    width: 100%;
+  }
+
+  mat-form-field {
+    transition: all 0.3s ease;
+  }
+
+  mat-form-field:hover {
+    transform: translateY(-2px);
+  }
+
+  ::ng-deep .mat-mdc-form-field-outline {
+    border-color: #2196f3 !important;
+  }
+
+  mat-error {
+    color: #f44336;
+    font-size: 0.85rem;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+
+  button {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    font-weight: 600;
+    padding: 10px 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 114, 255, 0.4);
+    }
+
+    &:disabled {
+      background: #b0bec5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
