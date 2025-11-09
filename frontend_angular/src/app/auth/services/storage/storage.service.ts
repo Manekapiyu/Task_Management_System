@@ -24,7 +24,7 @@ export class StorageService {
     return localStorage.getItem(TOKEN);
   }
 
-  static getUser(): any  {
+  static getUser(): any | null {
     const user = localStorage.getItem(USER);
     return user ? JSON.parse(user) : null;
   }
