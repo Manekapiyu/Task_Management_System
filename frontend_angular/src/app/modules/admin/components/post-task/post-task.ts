@@ -76,7 +76,7 @@ private router:Router  ) {
         this.router.navigateByUrl("/admin/dashboard");
 
       }else{
-        this.snackBar.open("Something wrong","ERROR",{duration:5000})
+        this.snackBar.open("Something wrong","ERROR",{duration:5000});
       }
      })
     }

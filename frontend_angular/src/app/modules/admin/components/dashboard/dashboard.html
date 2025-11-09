@@ -1,1 +1,36 @@
-<p>daashboard works!</p>
+<div class="task-list">
+    <mat-card class="task-card" *ngFor="let task of listOfTasks">
+        <div class="tasl-details">
+            <h2 class="task-name">{{task.title}}</h2>
+            <p class="task-description">{{task.description}}</p>
+
+            <mat-divider></mat-divider>
+            <div class="task-info">
+                <div class="info-row">
+                    <span class="info-label">Due Date:</span>
+                    <span class="info-value">{{task.dueDate | date: 'MMM, d, y'}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Employee:</span>
+                    <span class="info-value">{{task.employeeName}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Priority:</span>
+                    <span class="info-value">{{task.priority}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Status:</span>
+                    <span class="info-value">{{task.taskStatus}}</span>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+            <!--<div class="actions">
+                <button mat-icon-button color="accent" class="view-button"
+                routerLink="/admin/task-details/{{task.id}}">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+            </div>-->
+        </div>
+    </mat-card>
+</div>
