@@ -9,6 +9,7 @@ import { StorageService } from './auth/services/storage/storage.service';
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   standalone: true,
+  template: `<app-home></app-home>`,
   imports: [
     CommonModule,
     RouterModule,

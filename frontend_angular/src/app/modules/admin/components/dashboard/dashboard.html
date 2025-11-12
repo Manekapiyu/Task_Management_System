@@ -25,12 +25,16 @@
             </div>
 
             <mat-divider></mat-divider>
-            <!--<div class="actions">
+            <div class="actions">
                 <button mat-icon-button color="accent" class="view-button"
                 routerLink="/admin/task-details/{{task.id}}">
                     <mat-icon>visibility</mat-icon>
                 </button>
-            </div>-->
+                 <button mat-icon-button color="warm" class="delete-button"
+                (click)="deleteTask(Task.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </mat-card>
 </div>

@@ -14,6 +14,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+// ✅ Define Employee type
+interface Employee {
+  id: number;
+  name: string;
+}
+
 @Component({
   selector: 'app-post-task',
   standalone: true,
@@ -33,24 +39,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-task.scss']
 })
 export class PostTask {
-addEmployee() {
-throw new Error('Method not implemented.');
-}
-  taskForm!: FormGroup;
+  taskForm: FormGroup;
+  listOfEmployees: Employee[] = [];
   listOfPriorities: string[] = ['LOW', 'MEDIUM', 'HIGH'];
-newEmployeeEmail: any;
-newEmployeeName: any;
-listOfEmployees = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Smith' },
-  { id: 3, name: 'Alice Johnson' },
-  { id: 4, name: 'Bob Williams' }
-];
 
-  constructor(private adminService: AdminService
-    , private fb: FormBuilder,
-  private snackBar:MatSnackBar,
-private router:Router  ) {
+  constructor(
+    private adminService: AdminService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
+    // ✅ Initialize the form
     this.taskForm = this.fb.group({
       employeeId: [null, Validators.required],
       title: [null, Validators.required],
@@ -58,27 +57,41 @@ private router:Router  ) {
       dueDate: [null, Validators.required],
       priority: [null, Validators.required],
     });
+
     this.getUsers();
   }
 
+  // ✅ Fetch employees safely
   getUsers() {
-    this.adminService.getUsers().subscribe((res) => {
-      this.listOfEmployees = res;
-      console.log('Employees: Jhon', res);
+    this.adminService.getUsers().subscribe({
+      next: (res: Employee[] | null) => {
+        this.listOfEmployees = res?.filter((e): e is Employee => !!e) || [];
+        console.log('Employees:', this.listOfEmployees);
+      },
+      error: (err) => {
+        console.error('Error fetching employees', err);
+        this.listOfEmployees = [];
+      }
     });
   }
 
+  // ✅ Post task
   postTask() {
-      console.log( this.taskForm.value);
-     this.adminService.postTask(this.taskForm.value).subscribe((res)=>{
-      if(res.id != null){
-        this.snackBar.open("Task posted successfully","Close",{duration:5000})
-        this.router.navigateByUrl("/admin/dashboard");
+    if (this.taskForm.invalid) return;
 
-      }else{
-        this.snackBar.open("Something wrong","ERROR",{duration:5000});
+    this.adminService.postTask(this.taskForm.value).subscribe({
+      next: (res: any) => {
+        if (res?.id != null) {
+          this.snackBar.open('Task posted successfully', 'Close', { duration: 5000 });
+          this.router.navigateByUrl('/admin/dashboard');
+        } else {
+          this.snackBar.open('Something went wrong', 'ERROR', { duration: 5000 });
+        }
+      },
+      error: (err) => {
+        console.error('Error posting task', err);
+        this.snackBar.open('Server error', 'ERROR', { duration: 5000 });
       }
-     })
-    }
+    });
   }
-
+}
