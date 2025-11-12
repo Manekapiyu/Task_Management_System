@@ -69,7 +69,7 @@ mat-card-header {
 
   button {
     background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: 600;
     padding: 10px 30px;
     border-radius: 8px;
@@ -81,7 +81,7 @@ mat-card-header {
     }
 
     &:disabled {
-      background: #b0bec5;
+      background: #257eab;
       cursor: not-allowed;
     }
   }

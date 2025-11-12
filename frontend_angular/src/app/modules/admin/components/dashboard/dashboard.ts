@@ -6,6 +6,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,9 +24,14 @@ import { RouterModule } from "@angular/router";
   styleUrls: ['./dashboard.scss']
 })
 export class Dashboard {
+Task: any;
+
   listOfTasks: any[] = [];
 
-  constructor(private service: AdminService) {
+  constructor(private service: AdminService,
+    private snackbar:MatSnackBar
+  ) {
+
     this.getTasks();
   }
 
@@ -33,5 +39,12 @@ export class Dashboard {
     this.service.getAllTasks().subscribe((res: any[]) => {
       this.listOfTasks = res;
     });
+  }
+
+  deleteTask(id:number){
+    this.service.deleteTask(id).subscribe((res)=>{
+      this.snackbar.open("Task deleted successfully", "Close", {duration: 5000});
+
+    })
   }
 }

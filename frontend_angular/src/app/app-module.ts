@@ -19,6 +19,7 @@ import { AuthService } from './auth/services/auth/auth.service';
     FormsModule,
     Login,
     Signup,
+
   ],
    providers: [
     provideHttpClient(),
