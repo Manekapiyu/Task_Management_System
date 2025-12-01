@@ -11,8 +11,11 @@ import com.code.Task_SpringBoot.repository.TaskRepositiory;
 import com.code.Task_SpringBoot.repository.UserRepository;
 import com.code.Task_SpringBoot.services.auth.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -54,4 +57,29 @@ public class AdminServiceImpl implements AdminService {
         }
         return null;
     }
+
+    @Override
+    public List<TaskDTO> getAllTasks() {
+        return taskRepositiory.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Task::getDueDate).reversed())
+                .map(Task::getTaskDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteTask(Long id) {
+        taskRepositiory.deleteById(id);
+
+    }
+
+    @Override
+    public TaskDTO getTaskById(Long id) {
+        Optional<Task> optionalTask = taskRepositiory.findById(id);
+        return optionalTask.map(Task::getTaskDTO).orElse(null);
+    }
+
+
+
+
 }
