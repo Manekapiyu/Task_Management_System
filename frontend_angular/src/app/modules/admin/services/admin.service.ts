@@ -40,6 +40,14 @@ deleteTask(id:number):Observable<any>{
   })
 }
 
+getTaskById(id:number):Observable<any>{
+  return this.http.get(BASIC_URL + "api/admin/task/" + id,{
+    headers:this.createAuthorizationHeader()
+  })
+}
+
+
+
 
 
 
