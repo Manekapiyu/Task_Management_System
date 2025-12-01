@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (admins.isEmpty()) {
             User admin = new User();
-            admin.setEmail("manishasewwandi15@gmail.com");
+            admin.setEmail("admin15@gmail.com");
             admin.setName("admin");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setUserRole(UserRole.ADMIN);
